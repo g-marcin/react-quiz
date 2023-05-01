@@ -1,12 +1,10 @@
 import "./App.css";
-import { Question } from "./modules/Question";
 import { Quiz } from "./modules";
 function App() {
   return (
     <>
       <Quiz>
-        <p>quiz</p>
-        <Question />
+        {/*children if any*/}
       </Quiz>
     </>
   );
