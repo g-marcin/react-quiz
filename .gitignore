@@ -11,7 +11,9 @@ node_modules
 dist
 dist-ssr
 package-lock.json
-src/common/*
+src/common/
+quizApiKey
+api/
 *.local
 
 # Editor directories and files

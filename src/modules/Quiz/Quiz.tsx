@@ -1,75 +1,79 @@
-import React, { FC, ReactElement, useEffect, useState } from "react";
-import { httpClient } from "../../common";
-import {AxiosResponse} from "axios"
-import { questionData } from "../../types";
-import {apiKey} from "../../../api/quizApiKey"
+import { FC, ReactElement, useEffect, useState } from 'react';
+import { httpClient } from '../../common';
+import { AxiosResponse } from 'axios';
+import { questionData } from '../../types';
+import { apiKey } from '../../../api/';
+import { Answers } from '../Answers';
 
 type QuizProps = {
-  children: ReactElement | ReactElement[]|undefined;
+  children: ReactElement | ReactElement[] | undefined;
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
-  
-  const category = "linux"
-  const limit = 10
-  const [quizQuestions, setQuizQuestions] = useState<questionData[]>([])
-  
-  const [questionIndex,setQuestionIndex] = useState(0)
-  const [isQuizFinished, setIsQuizFinished] = useState(false)
-  const isQuestion = !!quizQuestions[questionIndex]
-  const [currentAnswerIndex, setCurrentAnswerIndex] = useState(0)
-
-  useEffect(()=>{
-    httpClient.get(`/v1/questions?apiKey=${apiKey}&category=${category}&limit=${limit}`).then((response:AxiosResponse)=>{
-      setQuizQuestions(response.data)
-      console.log(response.data);      
-    })
-  },[])
-
-  useEffect(()=>{
-    console.log(questionIndex+1, `&&& question number`);
-    
-  },[questionIndex,])
-
-  if (!quizQuestions) {
-    return
-  }
+  const category = 'linux';
+  const limit = 10;
+  const [quizQuestions, setQuizQuestions] = useState<questionData[]>([]);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [userAnswerIndex, setUserAnswerIndex] = useState(0);
+  const [userAnswers, setUserAnswers] = useState<
+    { questionNumber: number; userAnswerIndex: number; isAnswerCorrect: boolean }[]
+  >([]);
+  const isQuizFinished = questionIndex===limit
+  const questionExists = !!quizQuestions[questionIndex];
+  useEffect(() => {
+    httpClient
+      .get(`/v1/questions?apiKey=${apiKey}&category=${category}&limit=${limit}`)
+      .then((response: AxiosResponse) => {
+        setQuizQuestions(response.data);
+      });
+  }, []);
 
 
-  return (<>{children}
-  {
-  !isQuizFinished && 
-  <div>
-  <h2>
-  {`${questionIndex+1}. ${quizQuestions[questionIndex]?.question}`}
-  </h2>
-  {isQuestion?<div style={{display:"flex", flexDirection:"column", alignItems:"start", border:"1px solid black"}}>
-    {
-     Object.values(quizQuestions[questionIndex]["answers"]).map((answer,index)=>{
-      if (!answer) {
-        return null
-      }
-      return <div style={{listStyleType:"none"}} key={index}><input type="radio" name="answer" value={index} onChange={(event)=>{
-        setCurrentAnswerIndex(Number(event.target.value));
-      }}/>{answer}</div>
-    })
+  return (
+    <>
+      {children}
+      {!isQuizFinished && (
+        <div className='Quiz__wrapper' >
+          <h2>{`${questionIndex + 1}. ${quizQuestions[questionIndex]?.question}`}</h2>
+          {questionExists ? (
+            <Answers
+              quizQuestions={quizQuestions}
+              questionIndex={questionIndex}
+              setUserAnswerIndex={setUserAnswerIndex}
+            />
+          ) : null}
+          <button
+            onClick={nextButtonHandler}
+          >
+            Next
+          </button>
+        </div>
+      )}
+
+      {isQuizFinished && (
+        <div>
+          <h2>Results:</h2>
+          <div>
+            {userAnswers.map((userAnswer, index) => {
+              return (
+                <p key={index}> {` Answer ${index + 1} is ${userAnswer.isAnswerCorrect ? 'correct' : 'incorrect'}`}</p>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
+  );
+  function nextButtonHandler(){
+      const currentUserAnswers = [...userAnswers];
+      const isAnswerCorrect =
+        Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === 'true';
+      currentUserAnswers.push({
+        questionNumber: questionIndex + 1,
+        userAnswerIndex: userAnswerIndex,
+        isAnswerCorrect: isAnswerCorrect,
+      });
+      setUserAnswers(currentUserAnswers);
+      setQuestionIndex(questionIndex + 1);
     }
-  </div>:null}
-  <button onClick={()=>{
-    
-    setQuestionIndex(questionIndex+1)
-    
-
-    
-    if(questionIndex===(10)){
-      setIsQuizFinished(true)
-    }
-
-    
-  }}>Next</button>
-  </div>
-  }
-
-  {isQuizFinished && <div>Results</div>}
-  </>);
 };
