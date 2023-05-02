@@ -93,3 +93,11 @@ button:focus-visible {
   align-self: flex-end;
   background: rgb(202, 198, 198);
 }
+
+.inline {
+  background: red;
+}
+
+.column {
+  flex-direction: column;
+}

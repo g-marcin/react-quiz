@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react';
 import { userAnswer } from '../../types';
-import { Box } from '../../components';
+import { Box, Container, Button } from '../../components';
 import { Result } from './Result';
 
 type ResultsProps = {
@@ -13,11 +13,18 @@ export const Results: FC<ResultsProps> = ({ userAnswers }) => {
     <>
       <Box>
         <h2>Results:</h2>
-        <div>
+        <Container className="column">
           {userAnswers.map((userAnswer, index) => {
             return <Result userAnswer={userAnswer} index={index} />;
           })}
-        </div>
+        </Container>
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          Reset
+        </Button>
       </Box>
     </>
   );
