@@ -4,9 +4,10 @@ import { AxiosResponse } from 'axios';
 import { questionData } from '../../types';
 import { apiKey } from '../../../api/';
 import { Answers } from '../Answers';
+import { Box } from '../../components/Box';
 
 type QuizProps = {
-  children: ReactElement | ReactElement[] | undefined;
+  children: ReactElement | ReactElement[];
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
@@ -18,7 +19,7 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
   const [userAnswers, setUserAnswers] = useState<
     { questionNumber: number; userAnswerIndex: number; isAnswerCorrect: boolean }[]
   >([]);
-  const isQuizFinished = questionIndex===limit
+  const isQuizFinished = questionIndex === limit;
   const questionExists = !!quizQuestions[questionIndex];
   useEffect(() => {
     httpClient
@@ -28,12 +29,11 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
       });
   }, []);
 
-
   return (
     <>
       {children}
       {!isQuizFinished && (
-        <div className='Quiz__wrapper' >
+        <Box>
           <h2>{`${questionIndex + 1}. ${quizQuestions[questionIndex]?.question}`}</h2>
           {questionExists ? (
             <Answers
@@ -42,14 +42,9 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
               setUserAnswerIndex={setUserAnswerIndex}
             />
           ) : null}
-          <button
-            onClick={nextButtonHandler}
-          >
-            Next
-          </button>
-        </div>
+          <button onClick={nextButtonHandler}>Next</button>
+        </Box>
       )}
-
       {isQuizFinished && (
         <div>
           <h2>Results:</h2>
@@ -64,16 +59,15 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
       )}
     </>
   );
-  function nextButtonHandler(){
-      const currentUserAnswers = [...userAnswers];
-      const isAnswerCorrect =
-        Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === 'true';
-      currentUserAnswers.push({
-        questionNumber: questionIndex + 1,
-        userAnswerIndex: userAnswerIndex,
-        isAnswerCorrect: isAnswerCorrect,
-      });
-      setUserAnswers(currentUserAnswers);
-      setQuestionIndex(questionIndex + 1);
-    }
+  function nextButtonHandler() {
+    const currentUserAnswers = [...userAnswers];
+    const isAnswerCorrect = Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === 'true';
+    currentUserAnswers.push({
+      questionNumber: questionIndex + 1,
+      userAnswerIndex: userAnswerIndex,
+      isAnswerCorrect: isAnswerCorrect,
+    });
+    setUserAnswers(currentUserAnswers);
+    setQuestionIndex(questionIndex + 1);
+  }
 };
