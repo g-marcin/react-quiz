@@ -1,4 +1,4 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { httpClient } from '../../common';
 import { AxiosResponse } from 'axios';
 import { questionData } from '../../types';
@@ -7,12 +7,14 @@ import { Answers } from '../Answers';
 import { Box } from '../../components/Box';
 import { Button } from '../../components';
 import { Results } from '..';
+import { QuizContext } from '../QuizContext';
+
 type QuizProps = {
   children?: ReactElement | ReactElement[];
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
-  const category = 'linux';
+  const category = useContext(QuizContext)?.quizCategory;
   const limit = 10;
   const [quizQuestions, setQuizQuestions] = useState<questionData[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);

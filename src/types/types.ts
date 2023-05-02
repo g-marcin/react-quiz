@@ -36,3 +36,7 @@ export type userAnswer = {
   userAnswerIndex: number;
   isAnswerCorrect: boolean;
 };
+
+export type QuizContextValue = {
+  quizCategory?: string;
+};
