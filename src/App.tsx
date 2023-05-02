@@ -1,9 +1,9 @@
-import './App.css';
-import { Quiz } from './modules';
+import "./App.css";
+import { Quiz } from "./modules";
 function App() {
   return (
     <>
-      <Quiz>{/*children if any*/}</Quiz>
+      <Quiz></Quiz>
     </>
   );
 }

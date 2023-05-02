@@ -1,17 +1,17 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
-import { httpClient } from '../../common';
-import { AxiosResponse } from 'axios';
-import { questionData } from '../../types';
-import { apiKey } from '../../../api/';
-import { Answers } from '../Answers';
-import { Box } from '../../components/Box';
-
+import { FC, ReactElement, useEffect, useState } from "react";
+import { httpClient } from "../../common";
+import { AxiosResponse } from "axios";
+import { questionData } from "../../types";
+import { apiKey } from "../../../api/";
+import { Answers } from "../Answers";
+import { Box } from "../../components/Box";
+import { Button } from "../../components";
 type QuizProps = {
-  children: ReactElement | ReactElement[];
+  children?: ReactElement | ReactElement[];
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
-  const category = 'linux';
+  const category = "linux";
   const limit = 10;
   const [quizQuestions, setQuizQuestions] = useState<questionData[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -33,7 +33,7 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
     <>
       {children}
       {!isQuizFinished && (
-        <Box>
+        <Box className="Quiz__wrapper">
           <h2>{`${questionIndex + 1}. ${quizQuestions[questionIndex]?.question}`}</h2>
           {questionExists ? (
             <Answers
@@ -42,26 +42,35 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
               setUserAnswerIndex={setUserAnswerIndex}
             />
           ) : null}
-          <button onClick={nextButtonHandler}>Next</button>
+          <Button onClick={nextButtonHandler} className="Quiz__nextButton">
+            Next
+          </Button>
         </Box>
       )}
       {isQuizFinished && (
-        <div>
+        <Box>
           <h2>Results:</h2>
           <div>
             {userAnswers.map((userAnswer, index) => {
               return (
-                <p key={index}> {` Answer ${index + 1} is ${userAnswer.isAnswerCorrect ? 'correct' : 'incorrect'}`}</p>
+                <p key={index}>
+                  {" "}
+                  {` Answer ${index + 1} is ${
+                    userAnswer.isAnswerCorrect ? "correct" : "incorrect"
+                  }`}
+                </p>
               );
             })}
           </div>
-        </div>
+        </Box>
       )}
     </>
   );
+
   function nextButtonHandler() {
     const currentUserAnswers = [...userAnswers];
-    const isAnswerCorrect = Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === 'true';
+    const isAnswerCorrect =
+      Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === "true";
     currentUserAnswers.push({
       questionNumber: questionIndex + 1,
       userAnswerIndex: userAnswerIndex,

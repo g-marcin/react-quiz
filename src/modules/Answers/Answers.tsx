@@ -1,8 +1,6 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
-import { httpClient } from '../../common';
-import { AxiosResponse } from 'axios';
+import { FC } from 'react';
 import { questionData } from '../../types';
-import { apiKey } from '../../../api/';
+import { Box } from '../../components';
 
 type AnswerProps = {
   quizQuestions: questionData[];
@@ -12,7 +10,7 @@ type AnswerProps = {
 
 export const Answers: FC<AnswerProps> = ({ quizQuestions, questionIndex, setUserAnswerIndex }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', border: '1px solid black' }}>
+    <Box>
       {Object.values(quizQuestions[questionIndex]['answers']).map((answer, index) => {
         if (!answer) {
           return null;
@@ -31,6 +29,6 @@ export const Answers: FC<AnswerProps> = ({ quizQuestions, questionIndex, setUser
           </div>
         );
       })}
-    </div>
+    </Box>
   );
 };
