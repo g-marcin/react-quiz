@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react';
+import { Box, Button, Container } from '../../components';
 import { userAnswer } from '../../types';
-import { Box, Container, Button } from '../../components';
 import { Result } from './Result';
 
 type ResultsProps = {
@@ -22,6 +22,7 @@ export const Results: FC<ResultsProps> = ({ userAnswers }) => {
           onClick={() => {
             window.location.reload();
           }}
+          className='Quiz__nextButton'
         >
           Reset
         </Button>

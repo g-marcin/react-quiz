@@ -1,6 +1,5 @@
-import { ReactElement, createContext } from 'react';
+import { FC, ReactElement, createContext } from 'react';
 import { QuizContextValue } from '../../types';
-import { FC } from 'react';
 
 export const QuizContext = createContext<QuizContextValue | null>({ quizCategory: 'linux' });
 

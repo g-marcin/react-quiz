@@ -1,10 +1,9 @@
-import './App.css';
-import { Quiz } from './modules';
-import { useState } from 'react';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faX, faCheck } from '@fortawesome/free-solid-svg-icons';
-import { QuizForm } from './modules/QuizForm';
+import { faCheck, faX } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { Quiz } from './modules';
 import { QuizContextProvider } from './modules/QuizContext';
+import { QuizForm } from './modules/QuizForm';
 
 function App() {
   library.add(faX, faCheck);
