@@ -1,17 +1,18 @@
-import { FC, ReactElement, useEffect, useState } from "react";
-import { httpClient } from "../../common";
-import { AxiosResponse } from "axios";
-import { questionData } from "../../types";
-import { apiKey } from "../../../api/";
-import { Answers } from "../Answers";
-import { Box } from "../../components/Box";
-import { Button } from "../../components";
+import { FC, ReactElement, useEffect, useState } from 'react';
+import { httpClient } from '../../common';
+import { AxiosResponse } from 'axios';
+import { questionData } from '../../types';
+import { apiKey } from '../../../api/';
+import { Answers } from '../Answers';
+import { Box } from '../../components/Box';
+import { Button } from '../../components';
+import { Results } from '..';
 type QuizProps = {
   children?: ReactElement | ReactElement[];
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
-  const category = "linux";
+  const category = 'linux';
   const limit = 10;
   const [quizQuestions, setQuizQuestions] = useState<questionData[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -47,30 +48,13 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
           </Button>
         </Box>
       )}
-      {isQuizFinished && (
-        <Box>
-          <h2>Results:</h2>
-          <div>
-            {userAnswers.map((userAnswer, index) => {
-              return (
-                <p key={index}>
-                  {" "}
-                  {` Answer ${index + 1} is ${
-                    userAnswer.isAnswerCorrect ? "correct" : "incorrect"
-                  }`}
-                </p>
-              );
-            })}
-          </div>
-        </Box>
-      )}
+      {isQuizFinished && <Results userAnswers={userAnswers} />}
     </>
   );
 
   function nextButtonHandler() {
     const currentUserAnswers = [...userAnswers];
-    const isAnswerCorrect =
-      Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === "true";
+    const isAnswerCorrect = Object.values(quizQuestions[questionIndex].correct_answers)[userAnswerIndex] === 'true';
     currentUserAnswers.push({
       questionNumber: questionIndex + 1,
       userAnswerIndex: userAnswerIndex,

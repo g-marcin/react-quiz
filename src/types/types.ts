@@ -30,3 +30,9 @@ export type questionData = {
   category: string;
   difficulty: string;
 };
+
+export type userAnswer = {
+  questionNumber: number;
+  userAnswerIndex: number;
+  isAnswerCorrect: boolean;
+};
