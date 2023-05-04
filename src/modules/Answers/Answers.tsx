@@ -10,7 +10,7 @@ type AnswerProps = {
 
 export const Answers: FC<AnswerProps> = ({ quizQuestions, questionIndex, setUserAnswerIndex }) => {
   return (
-    <Box>
+    <>
       {Object.values(quizQuestions[questionIndex]['answers']).map((answer, index) => {
         if (!answer) {
           return null;
@@ -29,6 +29,6 @@ export const Answers: FC<AnswerProps> = ({ quizQuestions, questionIndex, setUser
           </div>
         );
       })}
-    </Box>
+    </>
   );
 };

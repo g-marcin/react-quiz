@@ -8,13 +8,15 @@ import { Box } from '../../components/Box';
 import { Button } from '../../components';
 import { Results } from '..';
 import { QuizContext } from '../QuizContext';
+import { Spinner } from '../../components';
+import { QuizQuestion } from '../QuizQuestion';
 
 type QuizProps = {
   children?: ReactElement | ReactElement[];
 };
 
 export const Quiz: FC<QuizProps> = ({ children }) => {
-  const category = useContext(QuizContext)?.quizCategory;
+  const category = useContext(QuizContext)?.quizParameters.quizCategory;
   const limit = 10;
   const [quizQuestions, setQuizQuestions] = useState<questionData[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -37,17 +39,16 @@ export const Quiz: FC<QuizProps> = ({ children }) => {
       {children}
       {!isQuizFinished && (
         <Box className="Quiz__wrapper">
-          <h2>{`${questionIndex + 1}. ${quizQuestions[questionIndex]?.question}`}</h2>
           {questionExists ? (
-            <Answers
+            <QuizQuestion
               quizQuestions={quizQuestions}
               questionIndex={questionIndex}
               setUserAnswerIndex={setUserAnswerIndex}
+              nextButtonHandler={nextButtonHandler}
             />
-          ) : null}
-          <Button onClick={nextButtonHandler} className="Quiz__nextButton">
-            Next
-          </Button>
+          ) : (
+            <Spinner />
+          )}
         </Box>
       )}
       {isQuizFinished && <Results userAnswers={userAnswers} />}

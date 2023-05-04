@@ -79,12 +79,13 @@ button:focus-visible {
 .Quiz__wrapper {
   display: flex;
   flex-direction: column;
-  height: 40vh;
+  height: fit-content;
+
   width: 1200px;
-  padding: 25px;
-  background: #f0eded;
+
+  gap: 50px;
+  background: rgb(240, 237, 237);
   opacity: 0.8;
-  justify-content: space-between;
 }
 
 .Quiz__answers {
@@ -101,4 +102,9 @@ button:focus-visible {
 
 .column {
   flex-direction: column;
+}
+
+.Quiz__spinner {
+  display: flex;
+  justify-content: center;
 }
