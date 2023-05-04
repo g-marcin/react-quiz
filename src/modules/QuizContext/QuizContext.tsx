@@ -1,13 +1,18 @@
-import { FC, ReactElement, createContext } from 'react';
+import { ReactElement, createContext, useState, FC } from 'react';
 import { QuizContextValue } from '../../types';
 
-export const QuizContext = createContext<QuizContextValue | null>({ quizCategory: 'linux' });
+export const QuizContext = createContext<QuizContextValue | null>(null);
 
 type QuizContextProviderProps = {
   children: ReactElement | ReactElement[] | boolean | any;
-  value?: QuizContextValue;
+  value?: any;
 };
 
 export const QuizContextProvider: FC<QuizContextProviderProps> = ({ children, value }) => {
-  return <QuizContext.Provider value={{ quizCategory: 'devops' }}>{children}</QuizContext.Provider>;
+  const [quizParameters, setQuizParameters] = useState({ quizCategory: 'devops' });
+  return (
+    <QuizContext.Provider value={{ quizParameters: quizParameters, setQuizParameters: setQuizParameters }}>
+      {children}
+    </QuizContext.Provider>
+  );
 };

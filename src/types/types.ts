@@ -38,5 +38,14 @@ export type userAnswer = {
 };
 
 export type QuizContextValue = {
-  quizCategory?: string;
+  quizParameters: QuizParameters;
+  setQuizParameters: React.Dispatch<
+    React.SetStateAction<{
+      quizCategory: string;
+    }>
+  >;
+};
+
+type QuizParameters = {
+  quizCategory: string;
 };
