@@ -1,17 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87);
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+a:hover {
+  color: #747bff;
 }
 
 a {
@@ -24,16 +35,13 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  background: radial-gradient(farthest-side at 25vw 25vh, #933dda7e, #bb91dc1a, transparent),
+    radial-gradient(farthest-side at 45vw 110vh, #8e9eeacc, #8e9eea66, transparent),
+    radial-gradient(farthest-side at 80vw 55vh, #acafea, #cdcfe9, transparent);
 }
 
 button {
@@ -43,7 +51,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -66,4 +74,37 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.Quiz__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+
+  width: 1200px;
+
+  gap: 50px;
+  background: rgb(240, 237, 237);
+  opacity: 0.8;
+}
+
+.Quiz__answers {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border: 1px solid black;
+}
+
+.Quiz__nextButton {
+  align-self: flex-end;
+  background: #cac6c6;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.Quiz__spinner {
+  display: flex;
+  justify-content: center;
 }

@@ -1,0 +1,12 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  opacity: 0.8;
+  padding: 25px;
+  min-width: 250px;
+  max-width: 500px;
+  min-height: fit-content;
+
+  background: rgb(240, 237, 237);
+}
