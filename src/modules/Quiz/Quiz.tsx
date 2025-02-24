@@ -1,14 +1,12 @@
-import { FC, ReactElement, useContext, useEffect, useState } from 'react';
-import { httpClient } from '../../common';
 import { AxiosResponse } from 'axios';
-import { questionData } from '../../types';
-import { apiKey } from '../../../api/';
-import { Answers } from '../Answers';
-import { Box } from '../../components/Box';
-import { Button } from '../../components';
+import { FC, ReactElement, useContext, useEffect, useState } from 'react';
 import { Results } from '..';
-import { QuizContext } from '../QuizContext';
+import { apiKey } from '../../../api/';
+import { httpClient } from '../../common';
 import { Spinner } from '../../components';
+import { Box } from '../../components/Box';
+import { questionData } from '../../types';
+import { QuizContext } from '../QuizContext';
 import { QuizQuestion } from '../QuizQuestion';
 
 type QuizProps = {

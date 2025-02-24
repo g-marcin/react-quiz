@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { questionData } from '../../types';
-import { Box } from '../../components';
 
 type AnswerProps = {
   quizQuestions: questionData[];

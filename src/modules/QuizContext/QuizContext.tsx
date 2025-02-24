@@ -1,4 +1,4 @@
-import { ReactElement, createContext, useState, FC } from 'react';
+import { FC, ReactElement, createContext, useState } from 'react';
 import { QuizContextValue } from '../../types';
 
 export const QuizContext = createContext<QuizContextValue | null>(null);
@@ -8,7 +8,7 @@ type QuizContextProviderProps = {
   value?: any;
 };
 
-export const QuizContextProvider: FC<QuizContextProviderProps> = ({ children, value }) => {
+export const QuizContextProvider: FC<QuizContextProviderProps> = ({ children }) => {
   const [quizParameters, setQuizParameters] = useState({ quizCategory: 'devops' });
   return (
     <QuizContext.Provider value={{ quizParameters: quizParameters, setQuizParameters: setQuizParameters }}>
